@@ -3,10 +3,10 @@ const bodyParser = require("body-parser");
 
 class Service {
 
-    constructor(config, mongodb, authProvider) {
+    constructor(config, dependencies) {
         this.app = express();
         this.config = config;
-        this.dependencies = {mongodb, authProvider};
+        this.dependencies = dependencies;
         this.setupExpress();
         this.setupRoutes();
     }
