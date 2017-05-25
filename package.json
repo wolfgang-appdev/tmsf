@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo 'no tests at the moment'"
   },
-  "author": "Wolfgang Beer <wolfgang@app-dev.io>",
+  "author": "Wolfgang Beer <wolfgang.appdev@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
