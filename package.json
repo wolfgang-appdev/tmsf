@@ -1,12 +1,16 @@
 {
   "name": "tmsf",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "the microservice framework",
   "main": "index.js",
   "scripts": {
     "test": "echo 'no tests at the moment'"
   },
   "author": "Wolfgang Beer <wolfgang.appdev@gmail.com>",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/wolfgang-appdev/tmsf.git"
+  },
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
