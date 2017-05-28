@@ -3,8 +3,9 @@ let savedSecret;
 
 class AuthProvider {
 
-    constructor(secret) {
-        savedSecret = secret;
+    constructor(config) {
+        this.config = config;
+        savedSecret = config.tokenSecret;
     }
 
     requireToken(req, res, next) {
