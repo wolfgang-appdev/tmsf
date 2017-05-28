@@ -26,7 +26,7 @@ class Logger {
 
     log(level, line) {
 
-        let logLine += `[${new Date()}] [${level}] ${line}\n`;
+        let logLine = `[${new Date()}] [${level}] ${line}\n`;
 
         if (isEnvDevelopment) {
 
