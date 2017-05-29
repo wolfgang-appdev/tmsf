@@ -1,6 +1,6 @@
 {
   "name": "tmsf",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "the microservice framework",
   "main": "index.js",
   "scripts": {

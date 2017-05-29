@@ -19,7 +19,9 @@ class Service {
 
     setupRoutes() {
         const { router } = this.config;
+        const { accessLogMiddleware } = this.dependencies.logger;
         const routes = router.getRoutes(express, this.dependencies);
+        this.app.use(accessLogMiddleware);
         this.app.use(routes);
     }
 

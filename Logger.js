@@ -8,8 +8,10 @@ class Logger {
 
     constructor(config) {
         this.config = config;
-        this.logPath = path.resolve(config.folder, config.file);
-        this.writeStream = null;
+        this.errorLogPath = path.resolve(config.folder, config.errorLogFile);
+        this.accessLogPath = path.resolve(config.folder, config.accessLogFile);
+        this.errorWriteStream = null;
+        this.accessWriteStream = null;
     }
 
     error(line) {
@@ -25,7 +27,6 @@ class Logger {
     }
 
     log(level, line) {
-
         let logLine = `[${new Date()}] [${level}] ${line}\n`;
 
         if (isEnvDevelopment) {
@@ -34,14 +35,37 @@ class Logger {
 
         } else if (isEnvProduction) {
 
-            if (!this.writeStream) {
-                this.writeStream = fs.createWriteStream(this.logPath, {flags: "a"});
+            if (!this.errorWriteStream) {
+                this.errorWriteStream = fs.createWriteStream(this.errorLogPath, {flags: "a"});
             }
 
-            this.writeStream.write(logLine, "utf8");
+            this.errorWriteStream.write(logLine, "utf8");
 
         }
+    }
 
+    accessLogMiddleware(req, res, next) {
+        const { logRequests } = this.config;
+        const { ip, method, originalUrl } = req;
+        let logLine = `[${new Date()}] [${method}] ${ip} ${originalUrl}\n`;
+
+        if (logRequests) {
+            if (isEnvDevelopment) {
+
+                console.log(logLine);
+
+            } else if (isEnvProduction) {
+
+                if (!this.accessWriteStream) {
+                    this.accessWriteStream = fs.createWriteStream(this.accessLogPath, {flags: "a"});
+                }
+
+                this.accessWriteStream.write(logLine, "utf8");
+
+            }
+        }
+
+        next();
     }
 
 }
