@@ -3,7 +3,8 @@ the microservice framework
 
 
 ## info
-this framework can be used to quickly setup and build microservice or self-contained systems
+this framework can be used to quickly setup and build microservice or self-contained systems.
+[Here](https://github.com/wolfgang-appdev/tmsf-service-seed) you will find a seed project to quickly setup a new scs or microservice
 
 
 ## installation
@@ -38,12 +39,13 @@ module.exports = {
             models: models
         },
         logger: {
-            // path inside container (only used in production)
-            // in development mode all logs are written to the console
             folder: "/var/log/app",
             errorLogFile: "error.log",
             accessLogFile: "access.log",
             logRequests: true
+        },
+        authProvider: {
+            tokenSecret: process.env.TOKEN_SECRET || "super_duper_secret"
         }
     }
 }
@@ -57,7 +59,8 @@ const config = require("./config.js");
 
 const mongodb = new TMSF.MongoDB(config.dependencies.mongodb);
 const logger = new TMSF.Logger(config.dependencies.logger);
-const dependencies = { mongodb, logger };
+const authProvider = new TMSF.AuthProvider(config.dependencies.authProvider);
+const dependencies = { mongodb, logger, authProvider };
 
 const service = new TMSF.Service(config.settings, dependencies);
 const server = service.start();
