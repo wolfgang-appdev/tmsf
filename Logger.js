@@ -12,6 +12,7 @@ class Logger {
         this.accessLogPath = path.resolve(config.folder, config.accessLogFile);
         this.errorWriteStream = null;
         this.accessWriteStream = null;
+        this.accessLogMiddleware = this.accessLogMiddleware.bind(this);
     }
 
     error(line) {
